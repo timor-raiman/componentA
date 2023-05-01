@@ -1,0 +1,29 @@
+name: workflow_one
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+     
+env:
+  ENV_VAR: Value
+
+jobs:    
+  JobOne:
+    runs-on: ubuntu-18.04    
+    timeout-minutes: 60
+    env: 
+      JVAR: true
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: StepOne
+      shell: bash
+      run: |
+        env | sort
+
+    - name: StepTwo
+      shell: bash
+      run: |
+        echo TwoTwo
