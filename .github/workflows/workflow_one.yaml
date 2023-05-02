@@ -1,6 +1,17 @@
 name: workflow_one
 
 on:
+  workflow_dispatch:
+    inputs:
+      myInput:
+        description: 'My Input'
+        required: true
+        default: 'one'
+        type: choice
+        options:
+          - one
+          - two
+          - three
   pull_request:
     branches: ['main']
      
