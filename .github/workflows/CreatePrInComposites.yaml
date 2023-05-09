@@ -34,3 +34,8 @@ jobs:
           git reset ${GITHUB_SHA}
           cd ${GITHUB_WORKSPACE}
           git status
+      - name: Create Pull Request In CompositeA
+        uses: peter-evans/create-pull-request@v5
+        with:
+          add-paths: |
+            components/componentA
