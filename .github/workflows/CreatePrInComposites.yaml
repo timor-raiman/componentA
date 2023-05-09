@@ -37,6 +37,6 @@ jobs:
       - name: Create Pull Request In CompositeA
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ORG_PAT }}
           add-paths: |
             components/componentA
