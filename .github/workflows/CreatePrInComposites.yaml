@@ -6,7 +6,7 @@ on:
   workflow_dispatch: {}
 
 jobs:    
-  Create PR in CompositeA:
+  Create-PR-in-CompositeA:
     runs-on: ubuntu-22.04    
     timeout-minutes: 15
     steps:
