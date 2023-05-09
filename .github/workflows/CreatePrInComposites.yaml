@@ -23,6 +23,8 @@ jobs:
       - name: 'Bump ComponentA in CompositeA'
         run: |
           set -x -e -o pipefail
+          exec 2>&1
+          git submodule init
           git remote -v
           git config -l
           cd components/componentA
