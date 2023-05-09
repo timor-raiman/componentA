@@ -17,9 +17,9 @@ jobs:
       - name: Checkout CompositeA
         uses: actions/checkout@v2
           with:
-             repository: 'timor-raiman/compositeA'
-             ref: 'main'                            #This should be all the branches which include 'main' of componentA
-             submodules: 'false'
+            repository: 'timor-raiman/compositeA'
+            ref: 'main'                            #This should be all the branches which include 'main' of componentA
+            submodules: 'false'
       - name: 'Bump ComponentA in CompositeA'
         run: |
           git remote -v
