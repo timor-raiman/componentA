@@ -1,0 +1,33 @@
+name: Create PR in Composites
+
+on:
+  pull_request:
+    branches: ['main']
+  workflow_dispatch: {}
+
+jobs:    
+  Create PR in CompositeA:
+    runs-on: ubuntu-22.04    
+    timeout-minutes: 15
+    steps:
+      - name: Print GitHub Environment
+        run: echo '${{ toJSON(github) }}'
+      - name: Print Environment Variables
+        run: env | sort
+      - name: Checkout CompositeA
+        uses: actions/checkout@v2
+          with:
+             repository: 'timor-raiman/compositeA'
+             ref: 'main'                            #This should be all the branches which include 'main' of componentA
+             submodules: 'false'
+      - name: 'Bump ComponentA in CompositeA'
+        run: |
+          git remote -v
+          git config -l
+          cd components/componentA
+          git init
+          git remote add origin git@github.com:timor-raiman/componentA.git
+          git fetch --depth=1 ${GITHUB_SHA}
+          git reset ${GITHUB_SHA}
+          cd ${GITHUB_WORKSPACE}
+          git status
