@@ -37,7 +37,14 @@ jobs:
       - name: Create Pull Request In CompositeA
         uses: peter-evans/create-pull-request@v5
         with:
-          branch-suffix: timestamp
+          branch: component-pr/main/${{ github.pull_request.base.repo.owner.login }}/${{ github.pull_request.base.repo.name }}/${{ github.pull_request.number }}
+          title: PR
+          body: |
+            Pull request in:
+            Repository: ${{ github.pull_request.base.repo.owner.login }}/${{ github.pull_request.base.repo.name }}
+            Title:      ${{ github.pull_request.title }}
+            Number:     ${{ github.pull_request.number }}
+            URL:        ${{ github.pull_request.html_url }}
           token: ${{ secrets.ORG_PAT }}
           add-paths: |
             components/componentA
