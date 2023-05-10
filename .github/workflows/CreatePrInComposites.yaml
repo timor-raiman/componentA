@@ -38,7 +38,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: component-pr/main/${{ github.event.pull_request.base.repo.owner.login }}/${{ github.event.pull_request.base.repo.name }}/${{ github.event.pull_request.number }}
-          title: "PR ${{ github.event.pull_request.html_url }"
+          title: "PR ${{ github.event.pull_request.html_url }}"
           body: |
             ${{ github.event.pull_request.id }}
             <pre>
