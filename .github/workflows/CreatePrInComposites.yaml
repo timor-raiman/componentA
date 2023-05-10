@@ -37,6 +37,7 @@ jobs:
       - name: Create Pull Request In CompositeA
         uses: peter-evans/create-pull-request@v5
         with:
+          branch-suffix: timestamp
           token: ${{ secrets.ORG_PAT }}
           add-paths: |
             components/componentA
