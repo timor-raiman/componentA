@@ -38,12 +38,16 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: component-pr/main/${{ github.event.pull_request.base.repo.owner.login }}/${{ github.event.pull_request.base.repo.name }}/${{ github.event.pull_request.number }}
-          title: PR
+          title: PR ${{ github.event.pull_request.html_url }
           body: |
-            Pull request in:
-            Repository: ${{ github.event.pull_request.base.repo.owner.login }}/${{ github.pull_request.base.repo.name }}
-            Title:      ${{ github.event.pull_request.title }}
-            Number:     ${{ github.event.pull_request.number }}
+            "${{ github.event.pull_request.id }}"
+            <pre>
+            Title: "${{ github.event.pull_request.title }}"
+            Body:
+            =====================
+            ${{ github.event.pull_request.body }}
+            =====================
+            </pre>
             URL:        ${{ github.event.pull_request.html_url }}
           token: ${{ secrets.ORG_PAT }}
           add-paths: |
