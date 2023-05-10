@@ -37,7 +37,7 @@ jobs:
       - name: Create Pull Request In CompositeA
         uses: peter-evans/create-pull-request@v5
         with:
-          branch: component-pr/main/${{ github.pull_request.base.repo.owner.login }}/${{ github.pull_request.base.repo.name }}/${{ github.pull_request.number }}
+          branch: component-pr/main/${{ github.event.pull_request.base.repo.owner.login }}/${{ github.event.pull_request.base.repo.name }}/${{ github.event.pull_request.number }}
           title: PR
           body: |
             Pull request in:
