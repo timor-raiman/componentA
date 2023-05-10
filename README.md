@@ -1,0 +1,2 @@
+# componentA
+basic readme
