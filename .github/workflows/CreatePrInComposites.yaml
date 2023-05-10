@@ -6,7 +6,7 @@ on:
   workflow_dispatch: {}
 
 jobs:    
-  Create PR in CompositeA:
+  Create-PR-in-CompositeA:
     runs-on: ubuntu-22.04    
     timeout-minutes: 15
     steps:
@@ -16,18 +16,28 @@ jobs:
         run: env | sort
       - name: Checkout CompositeA
         uses: actions/checkout@v2
-          with:
-             repository: 'timor-raiman/compositeA'
-             ref: 'main'                            #This should be all the branches which include 'main' of componentA
-             submodules: 'false'
+        with:
+          repository: 'opensafety/compositeA'
+          ref: 'main'                            #This should be all the branches which include 'main' of componentA
+          submodules: 'false'
       - name: 'Bump ComponentA in CompositeA'
         run: |
+          set -x -e -o pipefail
+          exec 2>&1
+          git submodule init
           git remote -v
           git config -l
           cd components/componentA
           git init
-          git remote add origin git@github.com:timor-raiman/componentA.git
-          git fetch --depth=1 ${GITHUB_SHA}
+          git remote add origin https://github.com/opensafety/componentA.git
+          git fetch --depth=1 origin ${GITHUB_SHA}
           git reset ${GITHUB_SHA}
           cd ${GITHUB_WORKSPACE}
           git status
+      - name: Create Pull Request In CompositeA
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch-suffix: timestamp
+          token: ${{ secrets.ORG_PAT }}
+          add-paths: |
+            components/componentA
