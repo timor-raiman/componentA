@@ -37,16 +37,20 @@ jobs:
       - name: Create Pull Request In CompositeA
         uses: peter-evans/create-pull-request@v5
         with:
+          commit-message: "Bump ${{env.GITHUB_REPOSITORY}} to ${{env.GITHUB_REF}}"
           branch: component-pr/main/${{ github.event.pull_request.base.repo.owner.login }}/${{ github.event.pull_request.base.repo.name }}/${{ github.event.pull_request.number }}
-          title: "PR ${{ github.event.pull_request.html_url }}"
+          title: "PR ${{ github.event.pull_request.repo.name }}#${{ github.event.pull_request.number }}"
           body: |
-            ${{ github.event.pull_request.id }}
+            ${{ github.event.pull_request.html_url }}
+            ${{ github.event.pull_request.repo.owner }}
+            ${{ github.event.pull_request.repo.name }}
+            ${{ github.event.pull_request.number }}
             <pre>
-            Title: "${{ github.event.pull_request.title }}"
-            Body:
-            =====================
+            ======== Title =======
+            "${{ github.event.pull_request.title }}"
+            ======== Body ========
             ${{ github.event.pull_request.body }}
-            =====================
+            ======================
             </pre>
           token: ${{ secrets.ORG_PAT }}
           add-paths: |
