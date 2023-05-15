@@ -21,6 +21,8 @@ jobs:
           ref: 'main'                            #This should be all the branches which include 'main' of componentA
           submodules: 'false'
       - name: 'Bump ComponentA in CompositeA'
+        env:
+          NEW_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -x -e -o pipefail
           exec 2>&1
@@ -30,21 +32,19 @@ jobs:
           cd components/componentA
           git init
           git remote add origin https://github.com/opensafety/componentA.git
-          git fetch --depth=1 origin ${GITHUB_SHA}
-          git reset ${GITHUB_SHA}
+          git fetch --depth=1 origin ${NEW_SHA}
+          git reset ${NEW_SHA}
           cd ${GITHUB_WORKSPACE}
           git status
       - name: Create Pull Request In CompositeA
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: "Bump ${{ github.event.pull_request.base.repo.name }} to ${{ github.ref }}"
+          commit-message: "Bump ${{ github.event.pull_request.base.repo.name }} to PR ${{ github.event.pul_request.number }}"
           branch: component-pr/main/${{ github.event.pull_request.base.repo.owner.login }}/${{ github.event.pull_request.base.repo.name }}/${{ github.event.pull_request.number }}
           title: "PR ${{ github.event.pull_request.base.repo.name }}#${{ github.event.pull_request.number }}"
           body: |
+            ${{ github.event.pull_request.head.sha }}
             ${{ github.event.pull_request.html_url }}
-            ${{ github.event.pull_request.base.repo.owner }}
-            ${{ github.event.pull_request.base.repo.name }}
-            ${{ github.event.pull_request.number }}
             <pre>
             ======== Title =======
             "${{ github.event.pull_request.title }}"
