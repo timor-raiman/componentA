@@ -1,12 +1,18 @@
 name: PrintEventData
 
 on:
-  push: {}
-  merge_group: {}
-  pull_request: {}
-  workflow_dispatch: {}
-  status: {}
-
+  push:
+  merge_group:
+    types:
+      - checks_requested
+      - destroyed
+    branches:
+      - main
+      - patch*
+  pull_request:
+  workflow_dispatch:
+  check_run:
+    types: [created,requested_action, rerequested, completed]
 jobs:    
   doPrintEventData:
     runs-on: ubuntu-22.04    
