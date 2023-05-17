@@ -43,15 +43,7 @@ jobs:
           branch: component-pr/main/${{ github.event.pull_request.base.repo.owner.login }}/${{ github.event.pull_request.base.repo.name }}/${{ github.event.pull_request.number }}
           title: "PR ${{ github.event.pull_request.base.repo.name }}#${{ github.event.pull_request.number }}"
           body: |
-            ${{ github.event.pull_request.head.sha }}
-            ${{ github.event.pull_request.html_url }}
-            <pre>
-            ======== Title =======
-            "${{ github.event.pull_request.title }}"
-            ======== Body ========
-            ${{ github.event.pull_request.body }}
-            ======================
-            </pre>
+            ${{ format('{{"component_pr":{{"sha":"{0}","repo":"{1}","link":"{2}"}}}}',github.event.pull_request.head.sha,github.event.pull_request.base.repo.name,github.event.pull_request.html_url) }}
           token: ${{ secrets.ORG_PAT }}
           add-paths: |
             components/componentA

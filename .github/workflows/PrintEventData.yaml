@@ -1,0 +1,21 @@
+name: PrintEventData
+
+on:
+  push: {}
+  merge_group: {}
+  pull_request: {}
+  workflow_dispatch: {}
+  status: {}
+
+jobs:    
+  doPrintEventData:
+    runs-on: ubuntu-22.04    
+    timeout-minutes: 15
+    steps:
+      - name: Print GitHub Environment
+        run: |
+            cat << 'EOF'
+            ${{ toJSON(github) }}
+            EOF
+      - name: Print Environment Variables
+        run: env | sort
