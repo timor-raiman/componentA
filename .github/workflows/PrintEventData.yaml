@@ -8,7 +8,7 @@ on:
   status: {}
 
 jobs:    
-  Print Event Data:
+  doPrintEventData:
     runs-on: ubuntu-22.04    
     timeout-minutes: 15
     steps:
