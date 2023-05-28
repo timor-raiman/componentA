@@ -1,17 +1,19 @@
 name: Create PR in Composites
 
 on:
+  pull_request:
   merge_group:
     types:
       - checks_requested
       - destroyed
     branches:
       - main
-      - patch*
+
 jobs:    
   Create-PR-in-CompositeA:
     runs-on: ubuntu-22.04    
     timeout-minutes: 15
+    if: github.event_name == 'merge_group'
     steps:
       - name: Print GitHub Environment
         run: echo '${{ toJSON(github) }}'
