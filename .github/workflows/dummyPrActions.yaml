@@ -26,4 +26,4 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           name: 'CompositeA: Build & Test CompositeA'
           status: completed
-          conclusion: skipped
+          conclusion: neutral
