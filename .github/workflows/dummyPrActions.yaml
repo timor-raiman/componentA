@@ -1,0 +1,20 @@
+name: PrintEventData
+
+on:
+  pull_request:
+
+jobs:    
+  skipCreatePr:
+    name: Create-PR-in-CompositeA
+    if: ${{ false }}
+    runs-on: ubuntu-22.04    
+    steps:
+      - name: Print Environment Variables
+        run: env | sort
+  SkipWaitCompositeA:
+    name: "CompositeA: Build & Test CompositeA"
+    if: ${{ false }}
+    runs-on: ubuntu-22.04    
+    steps:
+      - name: Print Environment Variables
+        run: env | sort
