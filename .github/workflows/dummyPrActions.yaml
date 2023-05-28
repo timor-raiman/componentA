@@ -1,4 +1,4 @@
-name: PrintEventData
+name: DummyPrActions
 
 on:
   pull_request:
