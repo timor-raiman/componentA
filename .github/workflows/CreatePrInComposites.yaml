@@ -43,7 +43,9 @@ jobs:
       - name: Create Pull Request In CompositeA
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: "Bump ${{ github.repository }} by its merge queue"
+          #commit-message: "Bump ${{ github.repository }} by its merge queue"
+          commit-message: |
+            ${{ format('{{"component_pr":{{"sha":"{0}","repo":"{1}","link":"{2}"}}}}',github.sha,github.repository,'TO_DO') }}
           branch: component-mq/main/${{ github.repository }}/${{ github.ref_name }}
           title: "MQ ${{ github.repository }}#${{ github.event.merge_group.id }}"
           body: |
