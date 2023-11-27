@@ -1,0 +1,22 @@
+name: Static Analysis
+
+#Runs on evry pull request
+on: [pull_request]
+
+jobs:
+  coverity:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - name: config
+      run: CC=gcc ./config --banner=Configured --debug enable-fips enable-rc5 enable-md2 enable-ssl3 enable-nextprotoneg enable-ssl3-method enable-weak-ssl-ciphers enable-zlib enable-ec_nistp_64_gcc_128 no-shared enable-buildtest-c++ enable-external-tests -DPEDANTIC -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
+    - name: config dump
+      run: ./configdata.pm --dump
+    - name: make
+      run: ${{secrets.COVERITYBIN}}/cov-configure --gcc && ${{secrets.COVERITYBIN}}/cov-build --dir cov-int make -s -j4
+    - name: analyze
+      run: ${{secrets.COVERITYBIN}}/cov-analyze --dir cov-int --concurrency --security --rule --enable-constraint-fpp --enable-fnptr --enable-virtual
+    - name: format errors json
+      run: ${{secrets.COVERITYBIN}}/cov-format-errors --dir cov-int --json-output-v9 OpenSSL_coverity.json
+    - name: format errors html
+      run: ${{secrets.COVERITYBIN}}/cov-format-errors --dir cov-int --html-output OpenSSL_coverity_html
